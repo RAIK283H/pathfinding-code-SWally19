@@ -2,7 +2,7 @@ import pyglet
 import config_data
 import global_game_data
 import pathing
-from graph_data import graph_data
+from graph_data import graph_array
 from scoreboard import Scoreboard
 from graph import Graph
 from player_object import Player
@@ -24,7 +24,7 @@ text_display_area = pyglet.graphics.Group(order=20)
 button_display_area = pyglet.graphics.Group(order=21)
 
 # Set Game Data
-for graph in graph_data:
+for graph in graph_array:
     if len(graph) >= 3:
         global_game_data.target_node.append(random.randint(1, len(graph) - 2))
     else:
@@ -84,7 +84,7 @@ def on_draw():
 
 def change_graph():
     global_game_data.current_graph_index += 1
-    if global_game_data.current_graph_index >= len(graph_data):
+    if global_game_data.current_graph_index >= len(graph_array):
         global_game_data.current_graph_index = 0
     for player_object in global_game_data.player_objects:
         player_object.reset_player()

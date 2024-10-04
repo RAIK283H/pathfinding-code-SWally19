@@ -58,11 +58,11 @@ class Graph:
         self.graph_line_coordinates.clear()
         self.graph_point_coordinates.clear()
         # Draw lines for connections between vertices
-        for graph_point in graph_data.graph_data[global_game_data.current_graph_index]:
+        for graph_point in graph_data.graph_array[global_game_data.current_graph_index]:
             for other_point_index in graph_point[1]:
                 start_x = graph_point[0][0]
                 start_y = graph_point[0][1]
-                other_point = graph_data.graph_data[global_game_data.current_graph_index][other_point_index]
+                other_point = graph_data.graph_array[global_game_data.current_graph_index][other_point_index]
                 end_x = other_point[0][0]
                 end_y = other_point[0][1]
                 self.graph_line_coordinates.append((start_x, start_y, end_x, end_y))
@@ -71,7 +71,7 @@ class Graph:
                                           width=3, batch=self.batch, group=self.group1)
                 self.graph_lines.append(line)
         # Draw graph points and add lables for each vertex
-        for index, graph_point in enumerate(graph_data.graph_data[global_game_data.current_graph_index]):
+        for index, graph_point in enumerate(graph_data.graph_array[global_game_data.current_graph_index]):
             x_coordinate = graph_point[0][0]
             y_coordinate = graph_point[0][1]
             self.graph_point_coordinates.append((x_coordinate, y_coordinate))
@@ -100,7 +100,7 @@ class Graph:
                 self.start_x = x_coordinate
                 self.start_y = y_coordinate
             # Set location for end object
-            if index == len(graph_data.graph_data[global_game_data.current_graph_index]) - 1:
+            if index == len(graph_data.graph_array[global_game_data.current_graph_index]) - 1:
                 self.end_x = x_coordinate
                 self.end_y = y_coordinate
 
@@ -138,9 +138,9 @@ class Graph:
             if 0 <= current_objective < len(current_path):
                 # Draw line from player to next objective
                 x_of_current_objective = relative_display_functions.get_relative_graph_x(
-                    graph_data.graph_data[global_game_data.current_graph_index][current_path[current_objective]][0][0])
+                    graph_data.graph_array[global_game_data.current_graph_index][current_path[current_objective]][0][0])
                 y_of_current_objective = relative_display_functions.get_relative_graph_y(
-                    graph_data.graph_data[global_game_data.current_graph_index][current_path[current_objective]][0][1])
+                    graph_data.graph_array[global_game_data.current_graph_index][current_path[current_objective]][0][1])
                 x_of_player = relative_display_functions.get_relative_graph_x(
                     global_game_data.player_objects[global_game_data.current_player_index].absolute_x)
                 y_of_player = relative_display_functions.get_relative_graph_y(
@@ -154,13 +154,13 @@ class Graph:
                     # Draw other lines later in path that player will travel to later
                     for index in range(current_objective + 1, len(current_path)):
                         x_of_indexed_objective = relative_display_functions.get_relative_graph_x(
-                            graph_data.graph_data[global_game_data.current_graph_index][current_path[index]][0][0])
+                            graph_data.graph_array[global_game_data.current_graph_index][current_path[index]][0][0])
                         y_of_indexed_objective = relative_display_functions.get_relative_graph_y(
-                            graph_data.graph_data[global_game_data.current_graph_index][current_path[index]][0][1])
+                            graph_data.graph_array[global_game_data.current_graph_index][current_path[index]][0][1])
                         x_of_previous_objective = relative_display_functions.get_relative_graph_x(
-                            graph_data.graph_data[global_game_data.current_graph_index][current_path[index - 1]][0][0])
+                            graph_data.graph_array[global_game_data.current_graph_index][current_path[index - 1]][0][0])
                         y_of_previous_objective = relative_display_functions.get_relative_graph_y(
-                            graph_data.graph_data[global_game_data.current_graph_index][current_path[index - 1]][0][1])
+                            graph_data.graph_array[global_game_data.current_graph_index][current_path[index - 1]][0][1])
                         line_to_objective = pyglet.shapes.Line(x_of_indexed_objective, y_of_indexed_objective,
                                                                x_of_previous_objective, y_of_previous_objective,
                                                                color=color, width=3, batch=self.batch,

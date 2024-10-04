@@ -9,7 +9,7 @@ Only the start and exit nodes are dead ends (all other nodes have degree >= 2)
 '''
 
 
-graph_data = [
+graph_array = [
 
     [
         [(0, 0), [1]],

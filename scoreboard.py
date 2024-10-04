@@ -74,10 +74,10 @@ class Scoreboard:
             self.player_path_display[index][0].text = self.wrap_text(str(global_game_data.graph_paths[index]))
 
     def update_distance_to_exit(self):
-        start_x = graph_data.graph_data[global_game_data.current_graph_index][0][0][0]
-        start_y = graph_data.graph_data[global_game_data.current_graph_index][0][0][1]
-        end_x = graph_data.graph_data[global_game_data.current_graph_index][-1][0][0]
-        end_y = graph_data.graph_data[global_game_data.current_graph_index][-1][0][1]
+        start_x = graph_data.graph_array[global_game_data.current_graph_index][0][0][0]
+        start_y = graph_data.graph_array[global_game_data.current_graph_index][0][0][1]
+        end_x = graph_data.graph_array[global_game_data.current_graph_index][-1][0][0]
+        end_y = graph_data.graph_array[global_game_data.current_graph_index][-1][0][1]
         self.distance_to_exit = math.sqrt(pow(start_x - end_x, 2) + pow(start_y - end_y, 2))
         self.distance_to_exit_label.text = 'Direct Distance To Exit : ' + "{0:.0f}".format(self.distance_to_exit)
 

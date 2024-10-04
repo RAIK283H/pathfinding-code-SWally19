@@ -15,8 +15,20 @@ def get_test_path():
     return graph_data.test_path[global_game_data.current_graph_index]
 
 
-def get_random_path():
-    return [1,2]
+def get_random_path(): 
+    # find path from start to target and add path from target to exit
+    firstPath = (randomHelper(0, global_game_data.target_node[global_game_data.current_graph_index]))
+    secondPath = (randomHelper(global_game_data.target_node[global_game_data.current_graph_index], (len(graph_data.graph_array[global_game_data.current_graph_index]) - 1)))
+    return firstPath + secondPath
+
+def randomHelper(start, end):
+    path = []
+    curr_node = start
+    path.append(curr_node)
+    while curr_node != end:
+        curr_node = random.choice(graph_data.graph_array[global_game_data.current_graph_index][curr_node][1])
+        path.append(curr_node)
+    return path
 
 
 def get_dfs_path():

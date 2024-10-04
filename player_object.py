@@ -12,8 +12,8 @@ class Player:
         self.speed = relative_display_functions.get_absolute_speed()
         self.current_objective = 0
         self.player_index = player_index
-        self.absolute_x = graph_data.graph_data[global_game_data.current_graph_index][0][0][0]
-        self.absolute_y = graph_data.graph_data[global_game_data.current_graph_index][0][0][1]
+        self.absolute_x = graph_data.graph_array[global_game_data.current_graph_index][0][0][0]
+        self.absolute_y = graph_data.graph_array[global_game_data.current_graph_index][0][0][1]
         self.player_image = pyglet.resource.image(player_config_data[1])
         self.sprite = pyglet.sprite.Sprite(img=self.player_image, x=0, y=0, batch=batch, group=group)
         self.player_config_data = player_config_data
@@ -25,8 +25,8 @@ class Player:
 
     def reset_player(self):
         self.current_objective = 0
-        self.absolute_x = graph_data.graph_data[global_game_data.current_graph_index][0][0][0]
-        self.absolute_y = graph_data.graph_data[global_game_data.current_graph_index][0][0][1]
+        self.absolute_x = graph_data.graph_array[global_game_data.current_graph_index][0][0][0]
+        self.absolute_y = graph_data.graph_array[global_game_data.current_graph_index][0][0][1]
         self.distance_traveled = 0
 
     def update(self, dt):
@@ -48,9 +48,9 @@ class Player:
 
         # Move player under normal circumstances
         if self.current_objective >= 0 and global_game_data.current_player_index == self.player_index:
-            target_x = graph_data.graph_data[global_game_data.current_graph_index][
+            target_x = graph_data.graph_array[global_game_data.current_graph_index][
                 global_game_data.graph_paths[self.player_index][self.current_objective]][0][0]
-            target_y = graph_data.graph_data[global_game_data.current_graph_index][
+            target_y = graph_data.graph_array[global_game_data.current_graph_index][
                 global_game_data.graph_paths[self.player_index][self.current_objective]][0][1]
             difference_in_x = target_x - self.absolute_x
             difference_in_y = target_y - self.absolute_y

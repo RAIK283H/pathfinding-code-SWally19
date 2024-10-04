@@ -7,7 +7,7 @@ import sys
 def get_relative_graph_x(absolute_x_value):
     max_x_graph = sys.float_info.min
     min_x_graph = sys.float_info.max
-    for graph_point in graph_data.graph_data[global_game_data.current_graph_index]:
+    for graph_point in graph_data.graph_array[global_game_data.current_graph_index]:
         if graph_point[0][0] < min_x_graph:
             min_x_graph = graph_point[0][0]
         if graph_point[0][0] > max_x_graph:
@@ -21,7 +21,7 @@ def get_relative_graph_x(absolute_x_value):
 def get_relative_graph_y(absolute_y_value):
     max_y_graph = sys.float_info.min
     min_y_graph = sys.float_info.max
-    for graph_point in graph_data.graph_data[global_game_data.current_graph_index]:
+    for graph_point in graph_data.graph_array[global_game_data.current_graph_index]:
         if graph_point[0][1] < min_y_graph:
             min_y_graph = graph_point[0][1]
         if graph_point[0][1] > max_y_graph:
@@ -35,7 +35,7 @@ def get_relative_graph_y(absolute_y_value):
 def get_absolute_speed():
     max_x_graph = sys.float_info.min
     min_x_graph = sys.float_info.max
-    for graph_point in graph_data.graph_data[global_game_data.current_graph_index]:
+    for graph_point in graph_data.graph_array[global_game_data.current_graph_index]:
         if graph_point[0][0] < min_x_graph:
             min_x_graph = graph_point[0][0]
         if graph_point[0][0] > max_x_graph:
