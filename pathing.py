@@ -16,7 +16,6 @@ def get_test_path():
 
 
 def get_random_path(): 
-    global_game_data.not_hit_target = True
     # find path from start to target and add path from target to exit
     firstPath = (random_helper(0, global_game_data.target_node[global_game_data.current_graph_index]))
     global_game_data.not_hit_target = False
@@ -29,12 +28,11 @@ def random_helper(start, end):
     # precondition: start and end exist
     assert start is not None
     assert end is not None
-    assert start != end
     path = []
     curr_node = start
     path.append(curr_node)
     while curr_node != end:
-        curr_node = random.choice(graph_data.graph_array[global_game_data.current_graph_index][curr_node][1])
+        curr_node = int(random.choice(graph_data.graph_array[global_game_data.current_graph_index][curr_node][1]))
         path.append(curr_node)
     # postcondition: path is not empty
     assert len(path) > 0
