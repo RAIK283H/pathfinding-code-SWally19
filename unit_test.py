@@ -2,6 +2,7 @@ import math
 import unittest
 
 import pathing
+import permutation
 
 
 class TestPathFinding(unittest.TestCase):
@@ -24,6 +25,8 @@ class TestPathFinding(unittest.TestCase):
         self.assertAlmostEqual(first=first_value,second=second_value,delta=1e-9)
         self.assertNotEqual(almost_pi, pi)
         self.assertAlmostEqual(first=almost_pi, second=pi, delta=1e-1)
+
+    # Pathing tests
 
     def test_dfs(self):
         graph = [
@@ -91,6 +94,132 @@ class TestPathFinding(unittest.TestCase):
         expected = [0, 21, 23]
         self.assertEqual(actual, expected)
 
+    # Permutation tests    
+    
+    def test_initialize_one(self):
+        expected = [-1]
+        actual = permutation.initialize(1)
+        self.assertEqual(actual, expected)
+
+    def test_initialize_four(self):
+        expected = [-1, -2, -3, -4]
+        actual = permutation.initialize(4)
+        self.assertEqual(actual, expected)
+
+    def test_find_largest_mobile_none(self):
+        sequence = [-4, -3, -2, -1]
+        expected = 0
+        actual = permutation.find_largest_mobile(sequence)
+        self.assertEqual(actual, expected)
+    
+    def test_find_largest_mobile_left(self):
+        sequence = [3, -4, -2, -1]
+        expected = -4
+        actual = permutation.find_largest_mobile(sequence)
+        self.assertEqual(actual, expected)
+
+    def test_find_largest_mobile_right(self):
+        sequence = [3, 4, -2, -1]
+        expected = 4
+        actual = permutation.find_largest_mobile(sequence)
+        self.assertEqual(actual, expected)
+
+    def test_swap_elements_left_edge(self):
+        sequence = [1, 2, 3, -4]
+        expected = [1, 2, -4, 3]
+        actual = permutation.swap_elements(sequence, 3)
+        self.assertEqual(actual, expected)
+
+    def test_swap_elements_right_edge(self):
+        sequence = [4, 2, 3, -1]
+        expected = [2, 4, 3, -1]
+        actual = permutation.swap_elements(sequence, 0)
+        self.assertEqual(actual, expected)
+
+    def test_swap_elements_middle(self):
+        sequence = [-1, 2, -3, 4]
+        expected = [-1, -3, 2, 4]
+        actual = permutation.swap_elements(sequence, 2)
+        self.assertEqual(actual, expected)
+
+    def test_swap_direction_negative_all(self):
+        sequence = [2, -1, -3, 4]
+        expected = [-2, -1, 3, -4]
+        actual = permutation.swap_direction(sequence, -1)
+        self.assertEqual(actual, expected)
+    
+    def test_swap_direction_positive_one(self):
+        sequence = [2, -1, 3, 4]
+        expected = [2, -1, 3, -4]
+        actual = permutation.swap_direction(sequence, 3)
+        self.assertEqual(actual, expected)
+
+    def test_sequence_to_store_all(self):
+        sequence = [-1, -2, -3, -4]
+        expected = [1, 2, 3, 4]
+        actual = permutation.sequence_to_store(sequence)
+        self.assertEqual(actual, expected)
+
+    def test_sequence_to_store_none(self):
+        sequence = [1, 2, 3, 4]
+        expected = [1, 2, 3, 4]
+        actual = permutation.sequence_to_store(sequence)
+        self.assertEqual(actual, expected)
+
+    def test_sequence_to_store_one(self):
+        sequence = [1, 2, -3, 4]
+        expected = [1, 2, 3, 4]
+        actual = permutation.sequence_to_store(sequence)
+        self.assertEqual(actual, expected)
+
+    def test_get_permutations(self):
+        expected = [[1, 2, 3], [1, 3, 2], [3, 1, 2], [3, 2, 1], [2, 3, 1], [2, 1, 3]]
+        actual = permutation.get_permutations(3)
+        self.assertEqual(actual, expected)
+
+    def test_is_valid_path_false(self):
+        graph = [
+                [(900, 45), [1, 2]],
+                [(100, 45), [0]],
+                [(600, 45), [0]],
+            ]
+            
+        path = [2, 1, 0]
+        self.assertFalse(permutation.is_valid_path(path, graph))
+
+    def test_is_valid_path_true(self):
+        graph = [
+                [(900, 45), [1, 2]],
+                [(100, 45), [0, 2]],
+                [(600, 45), [0, 1]],
+            ]
+            
+        path = [2, 0, 1]
+        self.assertTrue(permutation.is_valid_path(path, graph))
+
+    def test_get_cycles_none(self):
+        graph = [
+                [(900, 45), [1, 2]],
+                [(100, 45), [0]],
+                [(600, 45), [0]],
+            ]
+            
+        self.assertFalse(permutation.get_cycles(graph))
+
+    def test_get_cycles_true(self):
+        graph = [
+            # start
+                [(900, 45), [1]],
+                [(900, 45), [0, 2, 3]],
+                [(100, 45), [1, 3]],
+                [(600, 45), [1, 2, 4]],
+            # end
+                [(600, 45), [3]],
+            ]
+            
+        expected = [[1, 2, 3], [1, 3, 2], [3, 1, 2], [3, 2, 1], [2, 3, 1], [2, 1, 3]]
+        actual = permutation.get_cycles(graph)
+        self.assertEqual(actual, expected)
 
 if __name__ == '__main__':
     unittest.main()
