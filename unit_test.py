@@ -94,6 +94,40 @@ class TestPathFinding(unittest.TestCase):
         expected = [0, 21, 23]
         self.assertEqual(actual, expected)
 
+    def test_find_min_middle(self):
+        expected = 2
+        actual = pathing.find_min([0, 45, 2, 3, 70], [True, False, False, False, False])
+        self.assertEqual(actual, expected)
+
+    def test_find_min_first(self):
+        expected = 0
+        actual = pathing.find_min([0, 45, 2, 3, 70], [False, False, False, False, False])
+        self.assertEqual(actual, expected)
+
+    def test_find_min_last(self):
+        expected = 4
+        actual = pathing.find_min([60, 45, 2, 3, 1], [False, False, True, False, False])
+        self.assertEqual(actual, expected)
+
+    def test_dijkstra(self):
+        graph = [
+            [(45, 45), [1]],
+            [(45, 45), [0, 2]],
+            [(45, 45), [1, 3]],
+            [(45, 45), [2]],
+        ]
+        
+        expected = [0, 1, 2, 3]
+        actual = pathing.dijkstra_helper(0, 3, graph)
+        self.assertEqual(actual, expected)
+
+    def test_get_path_from_parents(self):
+        # TODO: fix the infinite loop, why it no work?
+        parents = [0, 2, 3, 1]
+        expected = [0, 3, 1, 2]
+        actual = pathing.get_path_from_parents(parents, 0, 3)
+        self.assertEqual(actual, expected)
+
     # Permutation tests    
     
     def test_initialize_one(self):

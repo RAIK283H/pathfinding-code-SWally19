@@ -1,3 +1,4 @@
+import sys
 import graph_data
 import global_game_data
 from numpy import random
@@ -136,4 +137,64 @@ def bfs_helper(start, end, graph):
 
 
 def get_dijkstra_path():
-    return [1,2]
+    firstPath = dijkstra_helper(0, global_game_data.target_node[global_game_data.current_graph_index], graph_data.graph_array[global_game_data.current_graph_index])
+    secondPath = dijkstra_helper(global_game_data.target_node[global_game_data.current_graph_index], (len(graph_data.graph_array[global_game_data.current_graph_index]) - 1), graph_data.graph_array[global_game_data.current_graph_index])
+    path = firstPath + secondPath[1:len(secondPath)]
+    assert global_game_data.target_node[global_game_data.current_graph_index] in path
+    assert path[len(path) - 1] == (len(graph_data.graph_array[global_game_data.current_graph_index]) - 1)
+    assert_path_connected(path, graph_data.graph_array[global_game_data.current_graph_index])
+    return path
+
+def dijkstra_helper(start, end, graph):
+    distance = []
+    parent = []
+    solved = []
+    queue = []
+    for i in range(len(graph)):
+        # give all nodes cost infinity
+        distance.append(sys.maxsize)
+        # initialize solved to false
+        solved.append(False)
+        # initialize parent to the start, this will be overwritten
+        parent.append(start)
+    distance[start] = 0
+    queue.append(start)
+
+    # loop until the queue is empty
+    while len(queue) != 0:
+        curr_node = find_min(distance, solved)
+        queue.remove(curr_node)
+        solved[curr_node] = True
+        if solved[end] == True:
+            break
+        # loop through neighbors
+        for neighbor in graph[curr_node][1]:
+            alt = distance[curr_node] + 1
+            if (solved[neighbor] == False) and (alt < distance[neighbor]):
+                distance[neighbor] = alt
+                parent[neighbor] = curr_node
+                queue.append(neighbor)
+    
+    # find path to end based on parent queue
+    return get_path_from_parents(parent, start, end)
+
+def find_min(list, solved):
+    min = sys.maxsize
+    index = -1
+    for i in range(len(list)):
+        if list[i] < min and solved[i] == False:
+            min = list[i]
+            index = i
+    return index
+
+def get_path_from_parents(parent, start, end):
+    path = []
+    child = end
+    path.append(child)
+    while(path[len(path) - 1] != start):
+        curr_parent = parent[child]
+        path.append(curr_parent)
+        child = curr_parent
+
+    path.reverse()
+    return path

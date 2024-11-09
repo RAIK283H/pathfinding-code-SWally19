@@ -156,7 +156,7 @@ class Scoreboard:
 
                 else:
                     if player_object.player_config_data == player_configuration_info:
-                        display_element.text = "Loser! " + str(min_dist) 
+                        display_element.text = "Loser! "
 
     def update_scoreboard(self):
         self.update_elements_locations()
