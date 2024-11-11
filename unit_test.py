@@ -122,9 +122,8 @@ class TestPathFinding(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_get_path_from_parents(self):
-        # TODO: fix the infinite loop, why it no work?
-        parents = [0, 2, 3, 1]
-        expected = [0, 3, 1, 2]
+        parents = [0, 0, 1, 2]
+        expected = [0, 1, 2, 3]
         actual = pathing.get_path_from_parents(parents, 0, 3)
         self.assertEqual(actual, expected)
 

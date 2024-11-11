@@ -174,7 +174,6 @@ def dijkstra_helper(start, end, graph):
                 distance[neighbor] = alt
                 parent[neighbor] = curr_node
                 queue.append(neighbor)
-    
     # find path to end based on parent queue
     return get_path_from_parents(parent, start, end)
 
