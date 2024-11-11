@@ -112,13 +112,25 @@ class TestPathFinding(unittest.TestCase):
     def test_dijkstra(self):
         graph = [
             [(45, 45), [1]],
-            [(45, 45), [0, 2]],
-            [(45, 45), [1, 3]],
-            [(45, 45), [2]],
+            [(45, 500), [0, 2]],
+            [(45, 100), [1, 3]],
+            [(45, 10), [2]],
         ]
         
         expected = [0, 1, 2, 3]
-        actual = pathing.dijkstra_helper(0, 3, graph)
+        actual = pathing.dijkstra_helper(0, 3, graph, False)
+        self.assertEqual(actual, expected)
+
+    def test_a_star(self):
+        graph = [
+            [(45, 200), [1]],
+            [(45, 45), [0, 2]],
+            [(45, 500), [1, 3]],
+            [(45, 100), [2]],
+        ]
+        
+        expected = [0, 1, 2, 3]
+        actual = pathing.dijkstra_helper(0, 3, graph, True)
         self.assertEqual(actual, expected)
 
     def test_get_path_from_parents(self):

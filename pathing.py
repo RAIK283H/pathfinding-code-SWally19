@@ -1,3 +1,4 @@
+import math
 import sys
 import graph_data
 import global_game_data
@@ -137,15 +138,15 @@ def bfs_helper(start, end, graph):
 
 
 def get_dijkstra_path():
-    firstPath = dijkstra_helper(0, global_game_data.target_node[global_game_data.current_graph_index], graph_data.graph_array[global_game_data.current_graph_index])
-    secondPath = dijkstra_helper(global_game_data.target_node[global_game_data.current_graph_index], (len(graph_data.graph_array[global_game_data.current_graph_index]) - 1), graph_data.graph_array[global_game_data.current_graph_index])
+    firstPath = dijkstra_helper(0, global_game_data.target_node[global_game_data.current_graph_index], graph_data.graph_array[global_game_data.current_graph_index], True)
+    secondPath = dijkstra_helper(global_game_data.target_node[global_game_data.current_graph_index], (len(graph_data.graph_array[global_game_data.current_graph_index]) - 1), graph_data.graph_array[global_game_data.current_graph_index], True)
     path = firstPath + secondPath[1:len(secondPath)]
     assert global_game_data.target_node[global_game_data.current_graph_index] in path
     assert path[len(path) - 1] == (len(graph_data.graph_array[global_game_data.current_graph_index]) - 1)
     assert_path_connected(path, graph_data.graph_array[global_game_data.current_graph_index])
     return path
 
-def dijkstra_helper(start, end, graph):
+def dijkstra_helper(start, end, graph, a_star):
     distance = []
     parent = []
     solved = []
@@ -169,7 +170,9 @@ def dijkstra_helper(start, end, graph):
             break
         # loop through neighbors
         for neighbor in graph[curr_node][1]:
-            alt = distance[curr_node] + 1
+            alt = distance[curr_node] + math.sqrt(math.pow(graph[curr_node][0][0] - graph[neighbor][0][0], 2) + math.pow(graph[curr_node][0][1] - graph[neighbor][0][1], 2))
+            if (a_star == True):
+                alt += math.sqrt(math.pow(graph[curr_node][0][0] - graph[end][0][0], 2) + math.pow(graph[curr_node][0][1] - graph[end][0][1], 2))
             if (solved[neighbor] == False) and (alt < distance[neighbor]):
                 distance[neighbor] = alt
                 parent[neighbor] = curr_node

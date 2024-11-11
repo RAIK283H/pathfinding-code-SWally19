@@ -8,3 +8,5 @@ My random path algorithm uses the choices funtion in the random library to rando
 My statistic is simply listing the player's color to make it more accessible to color blind users.
 
 Each player, besides test, is compared to the minimum distance calculated from comparing the distance from each path to determine whether or not they are a "winner".
+
+Dijkstra's algorithm has a boolean parameter called a_star to determine whether or not a heuristic approach is used. (extra credit)
