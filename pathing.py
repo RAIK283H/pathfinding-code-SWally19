@@ -172,7 +172,7 @@ def dijkstra_helper(start, end, graph, a_star):
         for neighbor in graph[curr_node][1]:
             alt = distance[curr_node] + math.sqrt(math.pow(graph[curr_node][0][0] - graph[neighbor][0][0], 2) + math.pow(graph[curr_node][0][1] - graph[neighbor][0][1], 2))
             if (a_star == True):
-                alt += math.sqrt(math.pow(graph[curr_node][0][0] - graph[end][0][0], 2) + math.pow(graph[curr_node][0][1] - graph[end][0][1], 2))
+                alt += math.sqrt(math.pow(graph[neighbor][0][0] - graph[end][0][0], 2) + math.pow(graph[neighbor][0][1] - graph[end][0][1], 2))
             if (solved[neighbor] == False) and (alt < distance[neighbor]):
                 distance[neighbor] = alt
                 parent[neighbor] = curr_node
