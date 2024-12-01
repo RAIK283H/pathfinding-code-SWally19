@@ -1,3 +1,4 @@
+import math
 import graph_data
 import global_game_data
 
@@ -7,6 +8,7 @@ def floyd_marshall():
     matrix = create_matrix(graph)
     parent = floyd_marshall_helper(matrix)
     path = get_path_from_parent_matrix(parent)
+    return path
 
 def floyd_marshall_helper(matrix):
     parent = []
@@ -19,12 +21,13 @@ def floyd_marshall_helper(matrix):
     return parent
 
 def get_path_from_parent_matrix(parent, start, end):
-    #TODO: implement this function
+    #TODO: test this function
     path = []
     child = end
     path.append(child)
+    # I don't think this while loop will work as intended
     while(path[len(path) - 1] != start):
-        curr_parent = parent[child]
+        curr_parent = parent[start][child]
         path.append(curr_parent)
         child = curr_parent
 
@@ -32,6 +35,9 @@ def get_path_from_parent_matrix(parent, start, end):
     return path
 
 def create_matrix(graph):
-    #TODO: implement this function
-    matrix = []
+    #TODO: test this function
+    matrix = [[-1 for col in range(len(graph))] for row in range(len(graph))]
+    for node in range(len(graph)):
+        for connection in graph[node][1]:
+            matrix[node][connection] = math.sqrt(math.pow(graph[node][0][0] - graph[connection][0][0], 2) + math.pow(graph[node][0][1] - graph[connection][0][1], 2))
     return matrix

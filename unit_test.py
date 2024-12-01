@@ -3,6 +3,7 @@ import unittest
 
 import pathing
 import permutation
+import f_w
 
 
 class TestPathFinding(unittest.TestCase):
@@ -264,6 +265,18 @@ class TestPathFinding(unittest.TestCase):
             
         expected = [[1, 2, 3], [1, 3, 2], [3, 1, 2], [3, 2, 1], [2, 3, 1], [2, 1, 3]]
         actual = permutation.get_cycles(graph)
+        self.assertEqual(actual, expected)
+
+    # Floyd Warshall tests
+    def test_create_matrix(self):
+        graph = [ [(0, 0),[1, 2]],
+                 [(0, 50), [0]],
+                 [(0, 100), [0]]
+        ]
+        expected = [[-1, 50, 100],
+                    [50, -1, -1],
+                    [100, -1, -1]]
+        actual = f_w.create_matrix(graph)
         self.assertEqual(actual, expected)
 
 if __name__ == '__main__':
