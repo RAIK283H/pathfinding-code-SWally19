@@ -1,4 +1,5 @@
 import math
+import sys
 import unittest
 
 import pathing
@@ -273,11 +274,46 @@ class TestPathFinding(unittest.TestCase):
                  [(0, 50), [0]],
                  [(0, 100), [0]]
         ]
-        expected = [[-1, 50, 100],
-                    [50, -1, -1],
-                    [100, -1, -1]]
+        expected = [[sys.maxsize, 50, 100],
+                    [50, sys.maxsize, sys.maxsize],
+                    [100, sys.maxsize, sys.maxsize]]
         actual = f_w.create_matrix(graph)
         self.assertEqual(actual, expected)
+
+    def test_get_path_from_parent_matrix(self):
+        parent = [[-1, -1, 1, 2, 3],
+                  [-1, -1, -1, 2, 3],
+                  [-1, -1, -1, -1, 3]]
+        actual = f_w.get_path_from_parent_matrix(parent, 0, 4)
+        expected = [0, 1, 2, 3, 4]
+        self.assertEqual(actual, expected)
+
+    def test_get_parents(self):
+        #TODO: fix
+        matrix = [[sys.maxsize, 2, 3, 4, 5],
+                  [sys.maxsize, sys.maxsize, 1, 2, 3],
+                  [sys.maxsize, sys.maxsize, sys.maxsize, 1, 2],
+                  [sys.maxsize, sys.maxsize, sys.maxsize, sys.maxsize, 1],
+                  [sys.maxsize, sys.maxsize, sys.maxsize, sys.maxsize, sys.maxsize]]
+        actual = f_w.get_parents(matrix, 5)
+        expected = [[-1, -1, 1, 2, 3],
+                    [-1, -1, -1, 2, 3],
+                    [-1, -1, -1, -1, 3],
+                    [-1, -1, -1, -1, -1],
+                    [-1, -1, -1, -1, -1]]
+        self.assertEqual(actual, expected)
+
+    # def test_fw(self):
+        # graph = [ [(0, 0),[]],
+        #          [(0, 50), [0]],
+        #          [(0, 100), [0]],
+        #          [(0, 150),[]],
+        #          [(0, 200), [0]],
+        # ]
+        # actual = f_w.floyd_warshall_helper(0, 4, graph)
+        # expected = [0, 1, 2, 3, 4]
+        # self.assertEqual(actual, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
