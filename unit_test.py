@@ -274,45 +274,45 @@ class TestPathFinding(unittest.TestCase):
                  [(0, 50), [0]],
                  [(0, 100), [0]]
         ]
-        expected = [[sys.maxsize, 50, 100],
-                    [50, sys.maxsize, sys.maxsize],
-                    [100, sys.maxsize, sys.maxsize]]
+        expected = [[math.inf, 50, 100],
+                    [50, math.inf, math.inf],
+                    [100, math.inf, math.inf]]
         actual = f_w.create_matrix(graph)
         self.assertEqual(actual, expected)
 
     def test_get_path_from_parent_matrix(self):
-        parent = [[-1, -1, 1, 2, 3],
-                  [-1, -1, -1, 2, 3],
-                  [-1, -1, -1, -1, 3]]
+        parent = [[math.inf, math.inf, 1, 2, 3],
+                  [math.inf, math.inf, math.inf, 2, 3],
+                  [math.inf, math.inf, math.inf, math.inf, 3]]
         actual = f_w.get_path_from_parent_matrix(parent, 0, 4)
         expected = [0, 1, 2, 3, 4]
         self.assertEqual(actual, expected)
 
     def test_get_parents(self):
-        #TODO: fix
-        matrix = [[sys.maxsize, 2, 3, 4, 5],
-                  [sys.maxsize, sys.maxsize, 1, 2, 3],
-                  [sys.maxsize, sys.maxsize, sys.maxsize, 1, 2],
-                  [sys.maxsize, sys.maxsize, sys.maxsize, sys.maxsize, 1],
-                  [sys.maxsize, sys.maxsize, sys.maxsize, sys.maxsize, sys.maxsize]]
+        matrix = [[math.inf, 2, math.inf, math.inf, 10],
+                  [math.inf, math.inf, 1, math.inf, 6],
+                  [math.inf, math.inf, math.inf, 1, 3],
+                  [math.inf, math.inf, math.inf, math.inf, 1],
+                  [math.inf, math.inf, math.inf, math.inf, math.inf]]
         actual = f_w.get_parents(matrix, 5)
-        expected = [[-1, -1, 1, 2, 3],
-                    [-1, -1, -1, 2, 3],
-                    [-1, -1, -1, -1, 3],
-                    [-1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1]]
+        expected = [[math.inf, math.inf, 1, 2, 3],
+                    [math.inf, math.inf, math.inf, 2, 3],
+                    [math.inf, math.inf, math.inf, math.inf, 3],
+                    [math.inf, math.inf, math.inf, math.inf, math.inf],
+                    [math.inf, math.inf, math.inf, math.inf, math.inf]]
         self.assertEqual(actual, expected)
 
-    # def test_fw(self):
-        # graph = [ [(0, 0),[]],
-        #          [(0, 50), [0]],
-        #          [(0, 100), [0]],
-        #          [(0, 150),[]],
-        #          [(0, 200), [0]],
-        # ]
-        # actual = f_w.floyd_warshall_helper(0, 4, graph)
-        # expected = [0, 1, 2, 3, 4]
-        # self.assertEqual(actual, expected)
+    def test_fw(self):
+        graph = [
+            [(45, 45), [1]],
+            [(45, 500), [0, 2]],
+            [(45, 100), [1, 3]],
+            [(45, 10), [2]],
+        ]
+        
+        expected = [0, 1, 2, 3]
+        actual = f_w.floyd_warshall_helper(0, 3, graph)
+        self.assertEqual(actual, expected)
 
 
 if __name__ == '__main__':
