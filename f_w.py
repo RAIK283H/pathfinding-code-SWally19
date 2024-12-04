@@ -1,12 +1,13 @@
 import math
-import sys
 import graph_data
 import global_game_data
 
 def floyd_warshall():
     graph = graph_data.graph_array[global_game_data.current_graph_index]
+    path_to_target = floyd_warshall_helper(0, global_game_data.target_node[global_game_data.current_graph_index], graph)
+    path_to_end = floyd_warshall_helper(global_game_data.target_node[global_game_data.current_graph_index], (len(graph_data.graph_array[global_game_data.current_graph_index]) - 1), graph)
     
-    return floyd_warshall_helper(graph)
+    return path_to_target + path_to_end[1:len(path_to_end)]
 
 def floyd_warshall_helper(start, end, graph):
     matrix = create_matrix(graph)
