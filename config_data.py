@@ -6,10 +6,12 @@ starting_graph_index = 0
 
 player_data = [
     ["Test", "1.png", colors.YELLOW, "yellow"],
-    ["Random", "2.png", colors.ORANGE, "orange"],
+    ["Floyd Warshall", "2.png", colors.ORANGE, "orange"],
+    # ["Random", "2.png", colors.ORANGE, "orange"],
     ["DFS", "3.png", colors.PURPLE, "purple"],
     ["BFS", "4.png", colors.BLUE, "blue"],
     ["Dijkstra", "5.png", colors.GREEN, "green"]
+    
 ]
 
 display_size_right = 400
